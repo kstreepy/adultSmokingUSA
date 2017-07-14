@@ -1,90 +1,71 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Adult Smoking in the United States</title>
-        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-        <script src="https://d3plus.org/js/d3plus.v2.0.0-alpha.13.full.min.js"></script>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tobacco is Wako</title>
+    <script src="https://d3plus.org/js/d3plus.v2.0.0-alpha.13.full.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+      #viz {
+        background-color: grey;
+        height: 400px;
+        padding: 50px;
+        width: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Health Risk Tobacco Trends</h1>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+    <!-- <iframe width="1440px" height="1080px" src="https://embed.datausa.io/map/?level=county&key=adult_smoking&translate=751.4184952647234,1067.4779203751639&scale=6617.565611550611?viz=True" frameborder="0" ></iframe> -->
+    <p>
+      <img src = "adultsmokemap.JPG"
+          alt="Adult Smoking Map"/>
+    </p>
+    <div id="viz"></div>
 
-        <!-- Load Leaflet from CDN-->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
-          integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
-          crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"
-          integrity="sha384-TWB9xRHTlLQmqAngHwD7usGcf4akGf0JP6aHwlgilpmOu2UuBq5aWLsDAh39iSn1"
-            crossorigin=""></script>
-        <style>      </style>
-        <link rel="stylesheet" href="style.css" />
-        <!-- Load Esri Leaflet from CDN -->
-        <script src="https://unpkg.com/esri-leaflet@2.0.8"
-          integrity="sha384-ze7rgny7/YGFxBlVgTBdOABNWe5V9BYjju/qwqJhCU8XJHtuEnRlbUpN5lXyY706"
-          crossorigin=""></script>
+    <script>
+      d3.json("https://api.datausa.io/attrs/geo/", function(error, data) {
+        data = d3plus.dataFold(data);
+        var nameLookup = data.reduce(function(obj, d) {
+          obj[d.id] = d.display_name;
+          return obj;
+        }, {});
+        console.log(nameLookup);
+        var chart = new d3plus.BarChart();
+        var settings = {
+          data: "https://api.datausa.io/api/?show=geo&geo=01000US,04000US25&required=year,income",
+          discrete: "y",
+          groupBy: "geo",
+          label: function(d) {
+            return nameLookup[d.geo];
+          },
+          select: "#viz",
+          y: function(d) {
+            return d.year;
+          },
+          x: function(d) {
+            return d.income;
+          }
+        };
+        var arcStyles = {
+          fill: function(d) {
+            if (d.geo == "01000US") {
+              return "cornflowerblue";
+            }
+            else {
+              return "rebeccapurple";
+            }
+          }
+        };
+        chart
+          .config(settings)
+          .shapeConfig(arcStyles)
+          .render();
+      });
+    </script>
 
-
-  <style>
-    body { margin:0; padding:0; }
-    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
-  </style>
-
-    </head>
-    <body>
-      <div id="map"></div>
-
-        <script>
-          var map = L.map('map').setView([37.71, -99.88], 4);
-
-          L.esri.basemapLayer('Gray').addTo(map);
-
-          L.esri.dynamicMapLayer({
-            url: 'https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer',
-            opacity: 0.7
-          }).addTo(map);
-        </script>
-    </body>
+  </body>
 </html>
-<script>
-
-  d3.json("https://api.datausa.io/attrs/geo/", function(error, data) {
-    d3plus.dataFold(data);
-    var nameLookup = data.reduce(function(obj, d) {
-      obj[d.id] = d.display.name;
-      return(obj);
-    }, {});
-    console.log(nameLookup);
-  });
-
-  var chart = new d3plus.BarChart();
-
-  var settings = {
-    data: "https://api.datausa.io/api/?show=geo&sumlevel=state&key=adult_smoking&year=latest",
-    discrete: "y",
-      label(function(d) {
-        return nameLookup[d.geo];
-      })
-    groupBy: "geo",
-    select: "#viz",
-    y: function(d) {
-      return d.year;
-  },
-  x: function(d) {
-    return d.income;
-  }
-};
-  var arcStyles = {
-    fill: function(d) {
-      if (d.geo =="01000US") {
-        return "orange";
-      }
-      else {
-        return "rebeccapurple";
-      }
-    }
-  }
-
-  chart
-  .config(settings)
-  .shapeConfig(arcStyles)
-  .render();
-
-</script>
