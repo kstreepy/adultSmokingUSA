@@ -9,14 +9,29 @@
     <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/themes/calcite/dijit/calcite.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/themes/calcite/esri/esri.css">
     <style>
+    header {
+        padding: 1em;
+        color: white;
+        background-color: black;
+
+        text-align: center;
+    }
+
+    article {
+
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+  }
+
       #viz {
         background-color: grey;
         height: 400px;
         padding: 50px;
         width: 600px;
+        position:relative;
       }
-    </style>
-    <style>
+
     html, body, #map {
       padding:0;
       margin:0;
@@ -73,17 +88,50 @@
     });
   </script>
   </head>
+
   <body class = "calcite">
-    <h1>Health Risk Tobacco Trends</h1>
+
+    <header>
+      <h1>Health Risk Tobacco Trends</h1>
+    </header>
+    <article>
     <p>
       Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
     </p>
+
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+
+    </article>
     <!-- <iframe width="1440px" height="1080px" src="https://embed.datausa.io/map/?level=county&key=adult_smoking&translate=751.4184952647234,1067.4779203751639&scale=6617.565611550611?viz=True" frameborder="0" ></iframe> -->
     <p>
-      <img src = "adultsmokemap.JPG"
-          alt="Adult Smoking Map"/>
+      <img src = "adultsmokemap.JPG" alt="Adult Smoking Map"style="width:804px;height:500px;"/>
     </p>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+
     <div id="viz"></div>
+    <p> texting </p>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
+    <p>
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+    </p>
 
     <div id="map" class="map">
     <div id="swipeDiv"></div>
