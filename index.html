@@ -37,15 +37,15 @@
       Map, LayerSwipe, arcgisUtils, array
     )  {
 
-      var mapDeferred = arcgisUtils.createMap("62702544d70648e593bc05d65180fd64", "map");
+      var mapDeferred = arcgisUtils.createMap("04fd0814b819496cb0f0a1117816e4b6", "map");
       mapDeferred.then(function(response){
 
         var id;
         var map = response.map;
-        var title = "2009 Obesity Rates";
+        var title = "Smoking_State";
 
         //loop through all the operational layers in the web map
-        //to find the one with the specified title;
+        //to find the one with the specified title
         var layers = response.itemInfo.itemData.operationalLayers;
         array.some(layers, function(layer){
           if(layer.title === title){
